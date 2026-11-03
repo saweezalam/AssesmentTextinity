@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Phone Book App 📖
 
-## Getting Started
+A modern, responsive, full-stack ready Phone Book web application built with **Next.js (App Router)**, **TypeScript**, and **Tailwind CSS**. Designed following clean architecture principles, featuring full CRUD (Create, Read, Update, Delete) capabilities, dynamic search filtering, custom React hooks, and schema validation with React Hook Form & Zod.
 
-First, run the development server:
+Developed as part of the **Full Stack Developer Assessment**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## ✨ Key Features
+
+- 🔍 **Real-time Filter**: Instant search filtering by **Last Name** (with support for trimming and safe case matching).
+- ➕ **Add Contact**: Modal form with custom input wrappers and instant Zod validation.
+- ✏️ **Edit Contact**: Seamlessly pre-fills form data to update existing phone book entries.
+- 🗑️ **Delete Contact**: Instant item deletion with clean UI updates.
+- 🎯 **Clean Architecture**:
+  - **Custom Hook (`usePhoneBook`)**: Decouples state management and CRUD logic from the UI.
+  - **Reusable Form Component (`FormInput`)**: Clean input wrapper handling labels and inline error messages.
+  - **Reusable Zod Schema (`contactSchema`)**: Centralized validation rules for First Name, Last Name, and Phone format.
+  - **Type-Safe**: 100% TypeScript coverage.
+
+---
+
+## 🛠️ Tech Stack & Dependencies
+
+- **Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
+- **Runtime**: Node.js `v20.9.0` (LTS)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Form Management**: [React Hook Form](https://react-hook-form.com/)
+- **Schema Validation**: [Zod](https://zod.dev/) (`@hookform/resolvers`)
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+---
+
+## 📁 Project Structure
+
+```
+phone-book-frontend/
+├── app/
+│   ├── globals.css          # Global CSS and Tailwind v3 directives
+│   ├── layout.tsx           # Root layout component
+│   └── page.tsx             # Clean, thin container component
+├── components/
+│   ├── Header.tsx           # App title header
+│   ├── SearchBar.tsx        # Search input field & Add Contact button
+│   ├── ContactItem.tsx      # Individual contact row (Edit & Delete actions)
+│   ├── ContactModal.tsx     # Form modal integrated with React Hook Form
+│   └── FormInput.tsx        # Reusable input field wrapper component
+├── hooks/
+│   └── usePhoneBook.ts      # Custom hook managing CRUD operations & state
+├── constants/
+│   └── initialContacts.ts   # Seed mock data
+├── validations/
+│   └── contactSchema.ts     # Reusable Zod validation schema
+└── types/
+    └── contact.ts           # TypeScript interfaces for contact objects
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started Locally
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
 
-## Learn More
+Ensure you have Node.js and npm installed:
+- **Node.js**: `v20.9.0` (or `v18.0.0+`)
+- **npm**: `v10.0.0+`
 
-To learn more about Next.js, take a look at the following resources:
+### Installation & Local Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/YOUR_GITHUB_USERNAME/phone-book-frontend.git
+   cd phone-book-frontend
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **View in browser:**
+   Open [http://localhost:3000](http://localhost:3000) to access the application.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🧪 Form Validation Rules
+
+- **First Name**: Required string (1–50 characters).
+- **Last Name**: Required string (1–50 characters).
+- **Phone Number**: Required string matching standard pattern `XXX-XXX-XXXX` (e.g., `222-555-6575`).
+
+---
+
+## ⚙️ Backend Integration Readiness
+
+The custom hook `usePhoneBook.ts` centralizes all data management handlers (`handleSaveContact`, `handleDeleteContact`, `filteredContacts`). Replacing the client-side React state with API calls (`fetch` or `axios`) to a NestJS / REST backend requires zero changes to the UI components.
