@@ -1,4 +1,5 @@
-import { Search, Plus } from 'lucide-react';
+'use client';
+import { Search } from 'lucide-react';
 
 interface SearchBarProps {
   searchTerm: string;
@@ -8,28 +9,25 @@ interface SearchBarProps {
 
 export default function SearchBar({ searchTerm, onSearchChange, onOpenModal }: SearchBarProps) {
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-800">Contacts</h2>
-        <button
-          onClick={onOpenModal}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md transition-colors"
-        >
-          <Plus className="w-4 h-4" />
-          Add Contact
-        </button>
-      </div>
-
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+    <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+      <div className="relative w-full sm:w-96">
+        <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+          <Search className="w-4 h-4" />
+        </span>
         <input
           type="text"
-          placeholder="Search for contact by last name..."
+          placeholder="Search by last name or phone..."
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-black"
+          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black bg-white placeholder-gray-400"
         />
       </div>
+      <button
+        onClick={onOpenModal}
+        className="w-full sm:w-auto bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors font-medium whitespace-nowrap"
+      >
+        + Add Contact
+      </button>
     </div>
   );
 }

@@ -10,11 +10,18 @@ import { X } from 'lucide-react';
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: ContactFormData) => void;
+  onSubmit: (data: ContactFormData) => boolean; 
   initialData?: Contact | null;
+  duplicateError?: string | null;             
 }
 
-export default function ContactModal({ isOpen, onClose, onSubmit, initialData }: ContactModalProps) {
+export default function ContactModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  initialData,
+  duplicateError,
+}: ContactModalProps) {
   const {
     register,
     handleSubmit,
@@ -22,11 +29,6 @@ export default function ContactModal({ isOpen, onClose, onSubmit, initialData }:
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-    },
   });
 
   useEffect(() => {
@@ -38,11 +40,7 @@ export default function ContactModal({ isOpen, onClose, onSubmit, initialData }:
           phoneNumber: initialData.phoneNumber,
         });
       } else {
-        reset({
-          firstName: '',
-          lastName: '',
-          phoneNumber: '',
-        });
+        reset({ firstName: '', lastName: '', phoneNumber: '' });
       }
     }
   }, [initialData, isOpen, reset]);
@@ -66,6 +64,12 @@ export default function ContactModal({ isOpen, onClose, onSubmit, initialData }:
         </div>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="p-4 space-y-4">
+          {duplicateError && (
+            <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-md">
+              {duplicateError}
+            </div>
+          )}
+
           <FormInput
             label="First Name"
             name="firstName"

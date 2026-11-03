@@ -11,6 +11,7 @@ export default function Home() {
     setSearchTerm,
     isModalOpen,
     editingContact,
+    duplicateError,
     filteredContacts,
     handleSaveContact,
     handleDeleteContact,
@@ -53,6 +54,7 @@ export default function Home() {
         onClose={closeModal}
         onSubmit={handleSaveContact}
         initialData={editingContact}
+        duplicateError={duplicateError}
       />
     </div>
   );
